@@ -33,6 +33,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.time>harvestTimer)
+        {
+            isHarvesting = false;
+        }
         FlipSprite();
     }
     private void FixedUpdate()
@@ -47,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
             if (moveVector.sqrMagnitude>1)
             {
                 moveVector=moveVector.normalized;
-                anim.SetBool("Walk", true);
             }
             if (moveVector.sqrMagnitude > 0)
             {
@@ -73,6 +76,16 @@ public class PlayerMovement : MonoBehaviour
             sr.flipX = true;
         }
 
+    }
+    
+    public void HarvestStopMovement(float time)
+    {
+        isHarvesting = true;
+        harvestTimer = Time.time + time;
+    }
+    public bool IsHarvesting()
+    {
+        return isHarvesting;
     }
 
 }
